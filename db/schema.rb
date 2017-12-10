@@ -10,7 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171207143058) do
+ActiveRecord::Schema.define(version: 20171209162148) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.string "alias"
+    t.string "keywords"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "categories_posts", id: false, force: :cascade do |t|
+    t.integer "category_id"
+    t.integer "post_id"
+  end
+
+  create_table "pages", force: :cascade do |t|
+    t.string "permalink_url"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.string "fb_id"
+    t.string "permalink_url"
+    t.integer "likes", default: 0
+    t.integer "comments", default: 0
+    t.integer "shares", default: 0
+    t.string "message"
+    t.integer "page_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["page_id"], name: "index_posts_on_page_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
