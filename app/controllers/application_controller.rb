@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+  include DatabaseHandler
   include Response
   include ExceptionHandler
   # called before every action on controllers
