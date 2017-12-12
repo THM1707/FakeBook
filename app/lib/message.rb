@@ -38,4 +38,8 @@ class Message
   def self.category_created
     'Category created successfully '
   end
+
+  def self.category_deleted
+    'Category deleted'
+  end
 end

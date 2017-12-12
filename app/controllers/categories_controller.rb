@@ -31,7 +31,7 @@ class CategoriesController < ApplicationController
     @category = Category.find_by_name(params[:name])
     @category.destroy
     response = {
-        message: "Deleted category "
+        message: Message.category_deleted
     }
     json_response(response)
   end
