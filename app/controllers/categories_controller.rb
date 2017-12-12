@@ -2,7 +2,7 @@ class CategoriesController < ApplicationController
   def create
     category = Category.create!(category_params)
     response = {
-        message: "Created category successfully",
+        message: Message.category_created,
         name: category.name,
         alias: category.alias,
         keywords: category.keywords
@@ -11,8 +11,14 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @categories = Category.all
-    render json: @categories
+    if params[:name].present?
+      @category = Category.find_by_name(params[:name])
+      render json: @category
+    else
+      @categories = Category.all
+      render json: @categories
+    end
+
   end
 
   def update

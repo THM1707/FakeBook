@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   post 'auth/login', to: 'authentication#authenticate'
   post 'signup', to: 'users#create'
   post 'categories/create', to: 'categories#create'
-  get 'categories/all', to: 'categories#show'
+  get 'categories', to: 'categories#show'
   post 'categories/update',to: 'categories#update'
   post 'categories/delete', to: 'categories#destroy'
+
+
 end
