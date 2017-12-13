@@ -33,8 +33,8 @@ module DatabaseHandler
 
   def self.update_category(post)
     Category.all.each do |category|
-      category.keywords.split(', ').each do |word|
-        if post.message.include? word
+      category.keywords.split(',').each do |word|
+        if !post.message.nil? && post.message.include?(word)
           category.posts << post
           break
         end
