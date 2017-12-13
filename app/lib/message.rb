@@ -39,7 +39,27 @@ class Message
     'Category created successfully '
   end
 
+  def self.category_updated
+    'Category updated successfully '
+  end
+
   def self.category_deleted
     'Category deleted'
+  end
+
+  def self.page_created
+    'Page created successfully'
+  end
+
+  def self.page_deleted
+    'Page deleted'
+  end
+
+  def self.page_updated
+    'Page updated successfully '
+  end
+
+  def self.not_admin
+    'Only admin can do this'
   end
 end

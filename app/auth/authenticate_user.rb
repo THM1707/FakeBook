@@ -9,6 +9,10 @@ class AuthenticateUser
     JsonWebToken.encode(user_id: user.id) if user
   end
 
+  def user_id
+    user.id
+  end
+
   private
 
   attr_reader :name, :password
