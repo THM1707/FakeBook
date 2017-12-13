@@ -20,4 +20,6 @@ Rails.application.routes.draw do
 
   delete 'categories/:url', to: 'categories#destroy'
 
+  post 'user/savePost', to: 'users#like'
+
 end
