@@ -1,11 +1,23 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  post 'auth/login', to: 'authentication#authenticate'
-  post 'signup', to: 'users#create'
-  post 'categories/create', to: 'categories#create'
-  get 'categories', to: 'categories#show'
-  post 'categories/update',to: 'categories#update'
-  post 'categories/delete', to: 'categories#destroy'
 
+  post 'auth/login', to: 'authentication#authenticate'
+
+  post 'signup', to: 'users#create'
+
+  get 'pages', to: 'pages#index'
+
+  post 'pages', to: 'page#create'
+
+  put 'pages/:id', to: 'page#update'
+
+  delete 'pages/:name', to: 'page#destroy'
+
+  get 'categories', to: 'categories#index'
+
+  post 'categories', to: 'categories#create'
+
+  put 'categories/:id', to: 'categories#update'
+
+  delete 'categories/:url', to: 'categories#destroy'
 
 end
