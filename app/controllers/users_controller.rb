@@ -6,24 +6,34 @@ class UsersController < ApplicationController
     user = User.create!(user_params)
     auth_token = AuthenticateUser.new(user.name, user.password).call
     response = {
-        message: Message.account_created,
-        user: user,
-        token: auth_token
+      message: Message.account_created,
+      user: user,
+      token: auth_token
     }
     json_response(response, :created)
   end
 
-  def like
+  def save
     @post = Post.find_by_permalink_url!(params[:post])
-    like = Like.create!(user_id: @current_user.id, post_id: @post.id)
-    json_response({message: Message.liked}, :ok)
+    @save = Save.create!(user_id: @current_user.id, post_id: @post.id)
+    json_response({ message: Message.saved }, :ok)
   end
 
-  def unlike
+  def unsave
     @post = Post.find_by_permalink_url!(params[:post])
-    @like = Like.find_by!(user_id: @current_user.id, post_id: @post.id)
-    @like.destroy
-    json_response({message: Message.unliked}, :ok)
+    @save = Save.find_by!(user_id: @current_user.id, post_id: @post.id)
+    @save.destroy
+    json_response({ message: Message.unsaved }, :ok)
+  end
+
+  def show_saved_posts
+    @posts = @current_user.posts
+    if params[:page].present?
+      @render_posts = @posts.paginate(page: params[:page], per_page: 10)
+      json_response(@render_posts, :ok)
+    else
+      json_response(@posts, :ok)
+    end
   end
 
   private
@@ -31,5 +41,4 @@ class UsersController < ApplicationController
   def user_params
     params.permit(:name, :password, :password_confirmation)
   end
-
 end
