@@ -62,4 +62,12 @@ class Message
   def self.not_admin
     'Only admin can do this'
   end
+
+  def self.liked
+    'Liked'
+  end
+
+  def self.unliked
+    'Unliked'
+  end
 end

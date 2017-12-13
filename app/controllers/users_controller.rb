@@ -13,9 +13,23 @@ class UsersController < ApplicationController
     json_response(response, :created)
   end
 
+  def like
+    @post = Post.find_by_permalink_url!(params[:post])
+    like = Like.create!(user_id: @current_user.id, post_id: @post.id)
+    json_response({message: Message.liked}, :ok)
+  end
+
+  def unlike
+    @post = Post.find_by_permalink_url!(params[:post])
+    @like = Like.find_by!(user_id: @current_user.id, post_id: @post.id)
+    @like.destroy
+    json_response({message: Message.unliked}, :ok)
+  end
+
   private
 
   def user_params
     params.permit(:name, :password, :password_confirmation)
   end
+
 end
