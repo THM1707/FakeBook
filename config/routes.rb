@@ -22,4 +22,6 @@ Rails.application.routes.draw do
 
   post 'user/savePost', to: 'users#like'
 
+  post 'user/deletePost', to: 'users#unlike'
+
 end

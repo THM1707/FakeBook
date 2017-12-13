@@ -66,4 +66,8 @@ class Message
   def self.liked
     'Liked'
   end
+
+  def self.unliked
+    'Unliked'
+  end
 end
