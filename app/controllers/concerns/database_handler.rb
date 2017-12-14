@@ -4,6 +4,7 @@ module DatabaseHandler
   end
 
   def self.get_post
+    Post.destroy_all
     Page.all.each do |page|
       posts = facebook.get_object(page_link(page.permalink_url))
       posts.each do |p|
@@ -25,7 +26,7 @@ module DatabaseHandler
   end
 
   def self.page_link(link)
-    param = 'posts?fields=permalink_url,shares,likes.summary(true),comments.summary(true),message&limit=5'
+    param = 'posts?fields=permalink_url,shares,likes.summary(true),comments.summary(true),message&limit=50'
     begin_time = 1.month.ago.to_time.strftime('%s')
     end_time = Time.now.strftime('%s')
     link.concat("/#{param}&since=#{begin_time}&until=#{end_time}")
