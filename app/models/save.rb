@@ -1,5 +1,5 @@
 class Save < ApplicationRecord
   belongs_to :user
-  belongs_to :post
-  validates :user_id, uniqueness: { scope: :post_id }
+  validates :permalink_url, presence: true, allow_blank: false
+  validates :user_id, uniqueness: { scope: :permalink_url }
 end
