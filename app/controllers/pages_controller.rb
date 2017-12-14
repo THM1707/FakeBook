@@ -9,11 +9,26 @@ class PagesController < ApplicationController
   def index
     if params[:name].present?
       @page = Page.find_by_name!(params[:name])
-      json_response(@page, :ok)
+      response = @page.as_json
+      categories_id = []
+      @page.categories.each do |c|
+        categories_id << c.id
+      end
+      response['category'] = categories_id
     else
       @pages = Page.all
-      json_response(@pages, :ok)
+      response = []
+      @pages.each do |p|
+        categories_id = []
+        temp = p.as_json
+        p.categories.each do |c|
+          categories_id << c.id
+        end
+        temp['category'] = categories_id
+        response << temp
+      end
     end
+    json_response(response, :ok)
   end
 
   def update
