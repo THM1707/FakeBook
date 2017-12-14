@@ -20,8 +20,12 @@ Rails.application.routes.draw do
 
   delete 'categories/:url', to: 'categories#destroy'
 
-  post 'user/savePost', to: 'users#like'
+  post 'user/savePost', to: 'users#save'
 
-  post 'user/deletePost', to: 'users#unlike'
+  post 'user/deletePost', to: 'users#unsave'
+
+  get 'user/getPosts', to: 'users#show_saved_posts'
+
+  get 'posts', to: 'posts#index'
 
 end

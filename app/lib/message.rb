@@ -63,11 +63,11 @@ class Message
     'Only admin can do this'
   end
 
-  def self.liked
-    'Liked'
+  def self.saved
+    'Saved'
   end
 
-  def self.unliked
-    'Unliked'
+  def self.unsaved
+    'Unsaved'
   end
 end
