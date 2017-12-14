@@ -1,24 +1,14 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Using Facebook's Graph API to arrange Facebook's post into Categories
 
-Things you may want to cover:
+* Version 
+    - Rails 5.1.4
+          
+    - Ruby 2.4.2
 
-* Ruby version
+* Run 'rails db:migrate' and generate records for categories, pages
 
-* System dependencies
+* Uncomment "schedule.rb" file and run 'whenever --update-crontab' to see the magic
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Using JWT for some action so be sure to generate your token

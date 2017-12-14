@@ -26,4 +26,6 @@ Rails.application.routes.draw do
 
   get 'user/getPosts', to: 'users#show_saved_posts'
 
+  get 'posts', to: 'posts#index'
+
 end

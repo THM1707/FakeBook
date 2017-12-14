@@ -9,11 +9,18 @@ class CategoriesController < ApplicationController
   def index
     if params[:name].present?
       @category = Category.find_by_name!(params[:name])
-      json_response(@category, :ok)
+      response = @category.as_json
+      response.keywords = response.keywords.split(',')
     else
       @categories = Category.all
-      json_response(@categories, :ok)
+      response = []
+      @categories.each do |c|
+        temp = c.as_json
+        temp['keywords'] = temp['keywords'].split(',')
+        response << temp
+      end
     end
+    json_response(response, :ok)
   end
 
   def update
