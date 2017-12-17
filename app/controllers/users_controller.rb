@@ -6,34 +6,43 @@ class UsersController < ApplicationController
     user = User.create!(user_params)
     auth_token = AuthenticateUser.new(user.name, user.password).call
     response = {
-      message: Message.account_created,
-      user: user,
-      token: auth_token
+        message: Message.account_created,
+        user: user,
+        token: auth_token
     }
     json_response(response, :created)
   end
 
   def save
-    @post = Post.find_by_permalink_url!(params[:post])
-    @save = Save.create!(user_id: @current_user.id, post_id: @post.id)
-    json_response({ message: Message.saved }, :ok)
+    @save = Save.create!(user_id: @current_user.id, permalink_url: params[:post])
+    json_response({message: Message.saved}, :ok)
   end
 
+
   def unsave
-    @post = Post.find_by_permalink_url!(params[:post])
-    @save = Save.find_by!(user_id: @current_user.id, post_id: @post.id)
+    @save = Save.find_by_permalink_url!(params[:post])
     @save.destroy
-    json_response({ message: Message.unsaved }, :ok)
+    json_response({message: Message.unsaved}, :ok)
   end
 
   def show_saved_posts
-    @posts = @current_user.posts
+    @urls = @current_user.saves.pluck(:permalink_url)
+    @posts = []
+    @urls.each do |u|
+      @post = Post.select('permalink_url').find_by_permalink_url(u).as_json(except: :id)
+      @posts << @post
+    end
     if params[:page].present?
-      @render_posts = @posts.paginate(page: params[:page], per_page: 10)
+      @render_posts = @posts.paginate(page: params[:page], per_page: 1)
       json_response(@render_posts, :ok)
     else
       json_response(@posts, :ok)
     end
+  end
+
+  def show_saved_posts_url
+    @urls = @current_user.saves.pluck(:permalink_url)
+    json_response(@urls, :ok)
   end
 
   private
