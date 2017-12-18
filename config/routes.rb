@@ -6,11 +6,11 @@ Rails.application.routes.draw do
 
   get 'pages', to: 'pages#index'
 
-  post 'pages', to: 'page#create'
+  post 'pages', to: 'pages#create'
 
-  put 'pages/:id', to: 'page#update'
+  put 'pages/:id', to: 'pages#update'
 
-  delete 'pages/:name', to: 'page#destroy'
+  delete 'pages/:id', to: 'pages#destroy'
 
   get 'categories', to: 'categories#index'
 
@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   put 'categories/:id', to: 'categories#update'
 
-  delete 'categories/:url', to: 'categories#destroy'
+  delete 'categories/:id', to: 'categories#destroy'
 
   post 'user/savePost', to: 'users#save'
 

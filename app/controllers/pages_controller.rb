@@ -32,13 +32,13 @@ class PagesController < ApplicationController
   end
 
   def update
-    @page = Page.find_by_name!(params[:name])
+    @page = Page.find(params[:id])
     @page.update_attributes!(page_params)
     json_response({ message: Message.page_updated }, :ok)
   end
 
   def destroy
-    @page = Page.find_by!(params[:url])
+    @page = Page.find(params[:id])
     @page.destroy
     json_response({ message: Message.page_deleted }, :ok)
   end
