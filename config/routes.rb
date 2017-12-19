@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   get 'pages', to: 'pages#index'
 
-  post 'pages', to: 'page#create'
+  post 'pages', to: 'pages#create'
 
   put 'pages/:id', to: 'pages#update'
 

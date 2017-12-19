@@ -2,7 +2,11 @@ class PagesController < ApplicationController
   skip_before_action :authorize_request, only: :index
   before_action :authenticate_admin, except: :index
   def create
-    Page.create!(page_params)
+    page = Page.create!(page_params)
+    params['category'].each do |id|
+      category = Category.find(id)
+      page.categories << category
+    end
     json_response({ message: Message.page_created }, :created)
   end
 
@@ -32,8 +36,13 @@ class PagesController < ApplicationController
   end
 
   def update
-    @page = Page.find(params[:id])
-    @page.update_attributes!(page_params)
+    page = Page.find(params[:id])
+    page.update_attributes!(page_params)
+    page.categories.delete_all
+    params['category'].each do |id|
+      category = Category.find(id)
+      page.categories << category
+    end
     json_response({ message: Message.page_updated }, :ok)
   end
 
