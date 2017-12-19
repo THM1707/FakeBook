@@ -28,6 +28,7 @@ export class DataService {
 
   public handleError(error: any) {
     if (error.status === 401) {
+      sessionStorage.removeItem(SystemConstants.CURRENT_USER);
       localStorage.removeItem(SystemConstants.CURRENT_USER);
       this.notifyService.printErrorMessage(MessageConstants.LOGIN_AGAIN_MSG);
     } else {
