@@ -7,7 +7,7 @@ class PostsController < ApplicationController
       @posts.keep_if { |p| p.message.present? && p.message.include?(params[:filter]) }
     end
     if params[:shop].present?
-      @page = Page.find_by_name!(params[:shop])
+      @page = Page.find_by!(permalink_url: params[:shop])
       @posts.keep_if { |p| p.message.present? && p.page_id == @page.id }
     end
     if params[:category].present?

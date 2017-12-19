@@ -1,16 +1,17 @@
 class CategoriesController < ApplicationController
   skip_before_action :authorize_request, only: :index
   before_action :authenticate_admin, except: :index
+
   def create
     Category.create!(category_params)
-    json_response({ message: Message.category_created }, :created)
+    json_response({message: Message.category_created}, :created)
   end
 
   def index
     if params[:name].present?
       @category = Category.find_by_name!(params[:name])
       response = @category.as_json
-      response.keywords = response.keywords.split(',')
+      response['keywords'] = response['keywords'].split(',')
     else
       @categories = Category.all
       response = []
@@ -24,15 +25,15 @@ class CategoriesController < ApplicationController
   end
 
   def update
-    @category = Category.find_by_name!(params[:name])
+    @category = Category.find(params[:id])
     @category.update_attributes!(category_params)
-    json_response({ message: Message.category_updated }, :ok)
+    json_response({message: Message.category_updated}, :ok)
   end
 
   def destroy
-    @category = Category.find_by!(params[:url])
+    @category = Category.find(params[:id])
     @category.destroy
-    json_response({ message: Message.category_deleted }, :ok)
+    json_response({message: Message.category_deleted}, :ok)
   end
 
   private
