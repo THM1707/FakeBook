@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit, AfterViewChecked {
     } else {
       $('#signup-li').trigger('click');
     }
-    this.sharedService.changeEmitted$.subscribe((text)=>{
+    this.sharedService.changeEmitted$.subscribe((text) => {
       this.isLoadingLogin = false;
       this.isLoadingSignup = false;
     });
@@ -66,6 +66,7 @@ export class LoginComponent implements OnInit, AfterViewChecked {
       this.isLoadingLogin = false;
     });
   }
+
 
 
   signUp() {

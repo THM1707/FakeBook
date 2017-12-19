@@ -103,10 +103,19 @@
                   src="/assets/res/loading_2.gif"
                   *ngIf="isLoadingLogin"
                   alt="">
-                <button class="sumbit" type="sumbit"
-                        [disabled]="fLogin.submitted && (!username.valid || !password.valid)">
-                  Đăng nhập
-                </button>
+                <div class="row">
+                  <div class="list-group-item col-md-6">
+                    Remember
+                    <div class="material-switch pull-right">
+                      <input id="someSwitchOptionPrimary" name="someSwitchOption001" [(ngModel)]="remember" type="checkbox">
+                      <label for="someSwitchOptionPrimary" class="label-primary"></label>
+                    </div>
+                  </div>
+                  <button class="sumbit col-md-6" type="sumbit"
+                          [disabled]="fLogin.submitted && (!username.valid || !password.valid)">
+                    Đăng nhập
+                  </button>
+                </div>
               </div>
             </form>
           </div>

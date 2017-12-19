@@ -26,7 +26,7 @@ module DatabaseHandler
   end
 
   def self.page_link(link)
-    param = 'posts?fields=permalink_url,shares,likes.summary(true),comments.summary(true),message&limit=50'
+    param = 'posts?fields=permalink_url,shares,likes.summary(true),comments.summary(true),message&limit=5'
     begin_time = 1.month.ago.to_time.strftime('%s')
     end_time = Time.now.strftime('%s')
     link.concat("/#{param}&since=#{begin_time}&until=#{end_time}")
