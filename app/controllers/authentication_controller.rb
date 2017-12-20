@@ -9,7 +9,8 @@ class AuthenticationController < ApplicationController
     response = {
         message: Message.login_success,
         user: user,
-        token: token
+        token: token,
+        remember: auth_params[:remember]
     }
     json_response(response)
   end
@@ -31,6 +32,6 @@ class AuthenticationController < ApplicationController
   end
 
   def auth_params
-    params.permit(:name, :password)
+    params.permit(:name, :password, :remember)
   end
 end
