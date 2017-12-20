@@ -22,9 +22,17 @@ export class AuthenticationService {
       .map((response: Response) => {
         const user: User = response.json().user;
         user.token = response.json().token;
+        remember = response.json().remember;
         if (user && user.token) {
-          localStorage.removeItem(SystemConstants.CURRENT_USER);
-          localStorage.setItem(SystemConstants.CURRENT_USER, JSON.stringify(user));
+          console.log(user.name);
+          if (remember) {
+            localStorage.removeItem(SystemConstants.CURRENT_USER);
+            localStorage.setItem(SystemConstants.CURRENT_USER, JSON.stringify(user));
+          } else {
+            sessionStorage.removeItem(SystemConstants.CURRENT_USER);
+            sessionStorage.setItem(SystemConstants.CURRENT_USER, JSON.stringify(user));
+          }
+
           // this.cookieService.delete(SystemConstants.CURRENT_USER);
           // this.cookieService.set(SystemConstants.CURRENT_USER, JSON.stringify(user));
         }
@@ -33,6 +41,7 @@ export class AuthenticationService {
 
 
   logout() {
+    sessionStorage.removeItem(SystemConstants.CURRENT_USER);
     localStorage.removeItem(SystemConstants.CURRENT_USER);
     // this.cookieService.delete(SystemConstants.CURRENT_USER);
   }
@@ -48,8 +57,8 @@ export class AuthenticationService {
         const user: User = response.json().user;
         user.token = response.json().token;
         if (user && user.token) {
-          localStorage.removeItem(SystemConstants.CURRENT_USER);
-          localStorage.setItem(SystemConstants.CURRENT_USER, JSON.stringify(user));
+          sessionStorage.removeItem(SystemConstants.CURRENT_USER);
+          sessionStorage.setItem(SystemConstants.CURRENT_USER, JSON.stringify(user));
           // this.cookieService.delete(SystemConstants.CURRENT_USER);
           // this.cookieService.set(SystemConstants.CURRENT_USER, JSON.stringify(user));
         }
@@ -57,7 +66,10 @@ export class AuthenticationService {
   }
 
   getCurrentUser(): any {
-    return JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER));
+    if (localStorage.getItem(SystemConstants.CURRENT_USER) !== null) {
+      return JSON.parse(localStorage.getItem(SystemConstants.CURRENT_USER));
+    }
+    return JSON.parse(sessionStorage.getItem(SystemConstants.CURRENT_USER));
     // return this.cookieService.get(SystemConstants.CURRENT_USER);
   }
 
