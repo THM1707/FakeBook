@@ -105,6 +105,7 @@ export class HomeComponent implements OnInit, AfterContentInit, OnDestroy {
             this.isNotFound = true;
           }
         }
+        console.log(response);
         this.isFirstTime = false;
         this.postList.push(...response);
         this.fbPostService.addPost(response, () => {

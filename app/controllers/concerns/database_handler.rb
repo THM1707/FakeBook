@@ -7,6 +7,7 @@ module DatabaseHandler
     Post.destroy_all
     Page.all.each do |page|
       posts = facebook.get_object(page_link(page.permalink_url))
+      categories_count = page.categories.count
       posts.each do |p|
         fb_id = p['id']
         permalink_url = p['permalink_url']
@@ -20,7 +21,11 @@ module DatabaseHandler
                            comments: comment_no,
                            message: message,
                            page_id: page_id)
-        update_category(post) if post.valid?
+        if categories_count == 1
+          post.categories << page.categories.first
+        else
+          update_category(post)
+        end
       end
     end
   end

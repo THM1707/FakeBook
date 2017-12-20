@@ -23,7 +23,6 @@ export class AuthenticationService {
         const user: User = response.json().user;
         user.token = response.json().token;
         if (user && user.token) {
-          console.log(user.name);
           localStorage.removeItem(SystemConstants.CURRENT_USER);
           localStorage.setItem(SystemConstants.CURRENT_USER, JSON.stringify(user));
           // this.cookieService.delete(SystemConstants.CURRENT_USER);
