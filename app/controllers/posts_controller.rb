@@ -12,11 +12,10 @@ class PostsController < ApplicationController
     end
     if params[:category].present?
       @category = Category.find_by_name!(params[:category])
-      @keywords = @category.keywords.split(',')
-      @posts.keep_if { |p| p.message.present? && p.in_category?(@keywords) }
+      @posts.keep_if { |p| in_category?(p, @category) }
     end
-    if params[:page].present? then
-      if params[:limit].present? then
+    if params[:page].present?
+      if params[:limit].present?
         @posts = @posts.paginate(:page => params[:page], :per_page =>  params[:limit])
       else
         @posts = @posts.paginate(:page => params[:page], :per_page => 12)
@@ -25,5 +24,16 @@ class PostsController < ApplicationController
       @posts = @posts.paginate(:page => 1, :per_page =>  params[:limit])
     end
     json_response(@posts, :ok)
+  end
+
+  def in_category?(post, category)
+    result = false
+    category.posts.each do |p|
+      if post.fb_id == p.fb_id
+        result = true
+        break
+      end
+    end
+    result
   end
 end
